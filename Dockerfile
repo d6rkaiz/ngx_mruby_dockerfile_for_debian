@@ -25,8 +25,6 @@
 FROM debian:latest
 MAINTAINER d6rkaiz
 
-# RUN apt-get -qqy install build-essential
-
 ENV NGINX_CONFIG_OPT_ENV \
  --prefix=/usr/local/nginx \
  --with-http_ssl_module \
