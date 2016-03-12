@@ -37,15 +37,13 @@ ENV NGINX_CONFIG_OPT_ENV \
  --with-http_random_index_module \
  --with-http_secure_link_module
 
-RUN apt-get -qqy update && apt-get -qqy install git curl wget \
- make gcc libc-dev libc6-dev \
- ruby ruby2.1 ruby2.1-dev rake \
- bison libcurl4-openssl-dev libssl-dev \
- libhiredis-dev libmarkdown2-dev libcap-dev libcgroup-dev \
- libpcre3 libpcre3-dev libmysqlclient-dev
-
-RUN cd /usr/local/src/ && git clone https://github.com/matsumoto-r/ngx_mruby.git && \
- cd /usr/local/src/ngx_mruby && sh build.sh && make install
+RUN apt-get -qqy update \
+ && apt-get -qqy install git curl wget make gcc libc-dev libc6-dev ruby ruby2.1 ruby2.1-dev rake bison libcurl4-openssl-dev libssl-dev \
+    libhiredis-dev libmarkdown2-dev libcap-dev libcgroup-dev libpcre3 libpcre3-dev libmysqlclient-dev \
+ && cd /usr/local/src/ && git clone https://github.com/matsumoto-r/ngx_mruby.git \
+ && cd /usr/local/src/ngx_mruby && sh build.sh && make install \
+ && apt-get autoremove \
+ && rm -rf /var/lib/apt/lists/*
 
 EXPOSE 80
 EXPOSE 443
